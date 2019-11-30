@@ -1,11 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const dishRouter = express.Router();
+const leaderRouter = express.Router();
 
-dishRouter.use(bodyParser.json());
+leaderRouter.use(bodyParser.json());
 
-dishRouter
+leaderRouter
   .route("/")
 
   .all((request, response, next) => {
@@ -15,32 +15,30 @@ dishRouter
   })
 
   .get((request, response, next) => {
-    response.end("Will send all the dishes to you!");
+    response.end("Will send all the leaders to you!");
   })
 
   .post((request, response, next) => {
     response.end(
-      "Will add the dish: " +
+      "Will add the leader: " +
         request.body.name +
         " with details: " +
-        request.body.description +
-        " and " +
-        request.headers.thing
+        request.body.description
     );
   })
 
   .put((request, response, next) => {
     response.statusCode = 403;
-    response.end("PUT operation not supported on /DISHES");
+    response.end("PUT operation not supported on /leader");
   })
 
   .delete((request, response, next) => {
-    response.end("Deleting all the dishes!");
+    response.end("Deleting all the leader!");
   });
 
-dishRouter
-  .route("/:dishId")
-  // .route("/:dishId/recipe/:recipeId")
+leaderRouter
+  .route("/:leaderId")
+  // .route("/:leaderId/recipe/:recipeId")
 
   .all((request, response, next) => {
     response.statusCode = 200;
@@ -50,22 +48,24 @@ dishRouter
 
   .get((request, response, next) => {
     response.end(
-      "Will send details of the dish: " + request.params.dishId + " to you! "
+      "Will send details of the leader: " +
+        request.params.leaderId +
+        " to you! "
       // + request.params.recipeId
     );
   })
 
   .post((request, response, next) => {
     response.end(
-      "POST operation not supported on /dishes" + request.params.dishId
+      "POST operation not supported on /leaders" + request.params.leaderId
     );
   })
 
   .put((request, response, next) => {
     response.statusCode = 403;
-    response.write("Updating the dish: " + request.params.dishId + "\n");
+    response.write("Updating the leader: " + request.params.leaderId + "\n");
     response.end(
-      "Will update the dish: " +
+      "Will update the leaders: " +
         request.body.name +
         " with details: " +
         request.body.description
@@ -73,7 +73,7 @@ dishRouter
   })
 
   .delete((request, response, next) => {
-    response.end("Deleting dish: " + request.params.dishId);
+    response.end("Deleting leaders: " + request.params.leaderId);
   });
 
-module.exports = dishRouter;
+module.exports = leaderRouter;
